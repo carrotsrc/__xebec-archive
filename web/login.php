@@ -1,6 +1,6 @@
 <?php
-	include('system/init.php');
-	include('lib/users.php');
+	include('../system/init.php');
+	include('../lib/users.php');
 	$db = init_database();
 	init_session();
 	$msg = null;
@@ -8,7 +8,7 @@
 	$uid = user_session_get_id();
 	if($uid) {
 		if(!isset($_GET['redir'])) {
-			header('Location: index.php');
+			header('Location: ../');
 			exit;
 		}
 
@@ -20,7 +20,7 @@
 		if(!user_routine_check_password($_POST['username'], $_POST['password'], $db)) {
 			$msg = "Username or password incorrect";
 		} else {
-			$redir = "index.php";
+			$redir = "../";
 			if(isset($_GET['redir']))
 				$redir = $_GET['redir'];
 
