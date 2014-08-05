@@ -23,7 +23,7 @@ if(!isset($tokens[2]))
 
 $tasks = array(
 	array('Overview', '../manage', null),
-	array('Add Package', 'manage/new-package', 'new-package')
+	array('New Package', 'manage/new-package', 'new-package')
 	);
 
 ?>
