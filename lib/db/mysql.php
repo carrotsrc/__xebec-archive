@@ -31,6 +31,6 @@
 
 	function db_last_id($db)
 	{
-		$db->insert_id;
+		return $db->insert_id;
 	}
 ?>

@@ -41,4 +41,26 @@
 		return db_query("INSERT INTO `collections` (`collection`) VALUES ('$name')", $db);
 	}
 
+	function collection_routine_package_exists($package, $collection, $db)
+	{
+		$sql = "SELECT `packages`.`id` FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
+		$sql .= " WHERE `packages`.`name`='$package' AND `collection_package`.`cid`='$collection'";
+		if(!db_query($sql, $db))
+			return false;
+
+		return true;
+	}
+
+	function collection_routine_add_package($package, $collection, $db)
+	{
+		return db_query("INSERT INTO `collection_package` (`cid`,`pid`) VALUES ('$collection', '$package')", $db);
+	}
+
+	function collection_routine_get_packages($collection, $db)
+	{
+		$sql = "SELECT * FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
+		$sql .= " WHERE `collection_package`.`cid`='$collection'";
+		return db_query($sql, $db);
+	}
+
 ?>
