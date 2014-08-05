@@ -1,8 +1,10 @@
 <?php
 	include('../system/init.php');
 	include('../lib/users.php');
+	include('general.php');
 	$db = init_database();
 	init_session();
+
 
 	$manager = null;
 	$loaded = false;
