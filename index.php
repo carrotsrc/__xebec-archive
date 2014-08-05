@@ -18,10 +18,13 @@
 <html>
 <head>
 <title>vegPatch Module Repository - <?php echo $title; ?></title>
+<link href="/lib/main.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
+<div class="system-location">
 <?php
 	display_location($db, array_slice($tokens, 2));
 ?>
+</div>
 </body>
 </html>
