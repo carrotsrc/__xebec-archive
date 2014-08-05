@@ -5,3 +5,23 @@
 .color-success {
 	color: #50AF20;
 }
+
+.system-location {
+
+}
+.system-location .manager-vtoolbar {
+	float: left;
+	width: 150px;
+}
+
+.system-location .manager-area {
+	display: block;
+}
+
+.system-location .manage-vtoolbar .item {
+	display: block;
+}
+
+.system-location .vtoolbar-offset {
+	margin-left: 150px;
+}
