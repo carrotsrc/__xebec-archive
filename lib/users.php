@@ -12,6 +12,14 @@ function user_session_get_id()
 	return $_SESSION['uid'];
 }
 
+function user_session_set_id($id)
+{
+	if($id == null)
+		unset($_SESSION['uid']);
+	else
+		$_SESSION['uid'] = $id;
+}
+
 /* hashing and stalts */
 function user_generate_salt()
 {

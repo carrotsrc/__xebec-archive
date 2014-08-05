@@ -8,11 +8,12 @@
 		return 'view';
 	}
 
-	function init_manager($db)
+	function init_manager($db, &$title)
 	{
 		global $repo_config;
 		$interface = get_interface();
 		include($repo_config['manroot']."/init_interface.php");
+		$title = "Users";
 		init_interface($db);
 	}
 

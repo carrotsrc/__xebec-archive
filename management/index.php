@@ -2,8 +2,15 @@
 	include('../system/init.php');
 	include('../lib/users.php');
 	include('general.php');
-	$db = init_database();
 	init_session();
+
+	if(user_session_get_id() == null) {
+		header("Location: ../login.php?redir=".$_SERVER['REQUEST_URI']);
+		exit;
+	}
+	$db = init_database();
+
+	$title = "Home";
 
 
 	$manager = null;
@@ -19,13 +26,13 @@
 		$loaded = true;
 	}
 	if($loaded)
-		init_manager($db);
+		init_manager($db, $title);
 
 ?>
 
 <html>
 <head>
-<title>vegPatch Module Repository - Management Interface</title>
+<title>vegPatch Module Repository - Management Interface - <?php echo $title; ?></title>
 <link href="../lib/main.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
