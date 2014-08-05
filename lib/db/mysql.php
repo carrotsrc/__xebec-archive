@@ -15,14 +15,18 @@
 	function db_query($query, $db)
 	{
 		$r = $db->query($query);
-		if(!$r)
+		if($r === true || $r === false)
+			return $r;
+
+		if($r->num_rows == null)
 			return false;
+
 		$rows = array();
 
-		while(($t = $db->fetch_assoc($r)) != NULL)
+		while(($t = $r->fetch_assoc()) != NULL)
 			$rows[] = $t;
 		
-		return $t;
+		return $rows;
 	}
 
 	function db_last_id($db)
