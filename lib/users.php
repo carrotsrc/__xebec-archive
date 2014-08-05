@@ -51,7 +51,7 @@ function user_db_get_details($username, $db)
 
 function user_db_exists($username, $db)
 {
-	if(!db_query("SELECT * FROM `users` WHERE `username`='$username'", $db))
+	if(!$r = db_query("SELECT * FROM `users` WHERE `username`='$username'", $db))
 		return false;
 
 	return true;
@@ -60,7 +60,7 @@ function user_db_exists($username, $db)
 /* routines */
 function user_routine_add($username, $email, $password, $db)
 {
-	if(user_exists($username, $db))
+	if(user_db_exists($username, $db))
 		return false;
 
 	$salt = user_generate_salt();
@@ -81,7 +81,7 @@ function user_routine_remove($ref)
 
 	$sql .= "'$ref'";
 
-	return db_send_query($sql, $db)
+	return db_query($sql, $db);
 }
 
 function user_routine_check_password($username, $password, $db)
