@@ -1,8 +1,8 @@
 <?php
 	$repo_config = array(
-		'dbms' => '',
-		'db' => '',
-		'dbuser' => '',
-		'dbpass' => ''
+		'dbms' => 'mysql',
+		'db' => 'vrepo',
+		'dbuser' => 'repoman',
+		'dbpass' => 'jsvMKH6ux78tSufs'
 		);
 ?>
