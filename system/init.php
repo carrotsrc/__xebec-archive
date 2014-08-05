@@ -1,5 +1,5 @@
 <?php
-	include('system/config.php');
+	include($_SERVER['DOCUMENT_ROOT'].'/system/config.php');
 
 	$repo_config['docroot'] = $_SERVER['DOCUMENT_ROOT'];
 
@@ -19,4 +19,8 @@
 		return db_connect();
 	}
 
+	function init_session()
+	{
+		session_start();
+	}
 ?>
