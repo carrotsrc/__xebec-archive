@@ -11,4 +11,22 @@
 
 		return $mysqli;
 	}
+
+	function db_query($query, $db)
+	{
+		$r = $db->query($query);
+		if(!$r)
+			return false;
+		$rows = array();
+
+		while(($t = $db->fetch_assoc($r)) != NULL)
+			$rows[] = $t;
+		
+		return $t;
+	}
+
+	function db_last_id($db)
+	{
+		$db->insert_id;
+	}
 ?>
