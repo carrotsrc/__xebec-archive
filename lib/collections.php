@@ -41,6 +41,20 @@
 		return db_query("INSERT INTO `collections` (`collection`) VALUES ('$name')", $db);
 	}
 
+	function collection_routine_add_directory($name)
+	{
+		global $repo_config;
+		$path = $repo_config['docroot']."/repo/$name";
+		return mkdir($path);
+	}
+
+	function collection_routine_add_package_directory($package, $collection)
+	{
+		global $repo_config;
+		$path = $repo_config['docroot']."/repo/$collection/$package";
+		return mkdir($path);
+	}
+
 	function collection_routine_package_exists($package, $collection, $db)
 	{
 		$sql = "SELECT `packages`.`id` FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
@@ -60,6 +74,18 @@
 	{
 		$sql = "SELECT * FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
 		$sql .= " WHERE `collection_package`.`cid`='$collection'";
+		return db_query($sql, $db);
+	}
+
+	function collection_routine_get_package($package, $collection, $db)
+	{
+		$sql = "SELECT * FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
+		$sql .= " WHERE `collection_package`.`cid`='$collection' AND ";
+		if(is_numeric($package))
+			$sql .= "`packages`.`id`='$package'";
+		else
+			$sql .= "`packages`.`name`='$package'";
+
 		return db_query($sql, $db);
 	}
 
