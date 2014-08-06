@@ -41,7 +41,7 @@ $tasks = array(
 	}
 ?>
 </div>
-<div class="manager-varea vtoolbar-offset">
+<div class="manager-area vtoolbar-offset">
 <?php
 
 	switch($tokens[2]) {
@@ -54,7 +54,7 @@ $tasks = array(
 			break;
 
 		default:
-			include("system/collections/manage/home.php");
+			include("system/collections/manage/view_pkg.php");
 			break;
 	}
 ?>

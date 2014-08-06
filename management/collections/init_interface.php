@@ -11,6 +11,11 @@
 			return;
 		}
 
+		if(!collection_routine_add_directory($_POST['collection'])) {
+			set_action_result(0, "An error occured when creating the directory");
+			return;
+		}
+
 		set_action_result(1, null);
 		return;
 	}

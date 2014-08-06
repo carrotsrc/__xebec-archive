@@ -18,10 +18,17 @@
 	display: block;
 }
 
-.system-location .manage-vtoolbar .item {
+.system-location .manager-vtoolbar .item {
 	display: block;
 }
 
 .system-location .vtoolbar-offset {
 	margin-left: 150px;
+}
+
+.system-location .manager-area td, th {
+	padding: 5px;
+}
+.system-location .manager-area th {
+	text-align: left;
 }

@@ -6,5 +6,5 @@
 	}
 
 	foreach($collections as $c)
-		echo "<a href=\"collections/{$c['collection']}\">{$c['collection']}</a>";
+		echo "<a href=\"collections/{$c['collection']}\">{$c['collection']}</a><br />";
 ?>

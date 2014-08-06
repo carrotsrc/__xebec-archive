@@ -5,6 +5,7 @@
 	if(isset($_POST['action']) && $_POST['action'] == 'new') {
 		include('lib/packages.php');
 		include('lib/strings.php');
+		$_POST['name'] = str_replace(" ", "_", $_POST['name']);
 		if(collection_routine_package_exists($_POST['name'], $collection['id'], $db)) {
 			$error = true;
 			$msg = "Package already exists in collection";
@@ -17,8 +18,10 @@
 				if(!collection_routine_add_package($id, $collection['id'], $db)) {
 					$error = true;
 					$msg = "Error adding package to collection";
-				} else 
+				} else  {
+					collection_routine_add_package_directory($_POST['name'], $collection['collection']);
 					$msg = "Successfully added package to collection";
+				}
 			}
 		}
 
