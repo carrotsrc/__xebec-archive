@@ -1,33 +1,56 @@
 <?php
-include('lib/users.php');
-include('lib/access.php');
-$uid = user_session_get_id();
-$access = false;
-if(access_is_system_admin($uid, $db))
-	$access = true;
-
-$collection = collection_db_get_details($tokens[0], $db);
-$collection = $collection[0];
-
-if(($value = access_get_value("collection", $uid, $collection['id'], $db)))
-	if(($value&1))
+	include('lib/users.php');
+	include('lib/access.php');
+	$uid = user_session_get_id();
+	$access = false;
+	if(access_is_system_admin($uid, $db))
 		$access = true;
 
-if(!$access) {
-	echo "Access denied!";
-	return;
-}
+	$collection = collection_db_get_details($tokens[0], $db);
+	$collection = $collection[0];
 
-if(!isset($tokens[2]))
-	$tokens[2] = null;
+	if(($value = access_get_value("collection", $uid, $collection['id'], $db)))
+		if(($value&1))
+			$access = true;
 
-$tasks = array(
-	array('Overview', '../manage', null),
-	array('New Package', 'manage/new-package', 'new-package')
-	);
+	if(!$access) {
+		echo "Access denied!";
+		return;
+	}
+
+	if(!isset($tokens[2]))
+		$tokens[2] = null;
+	
+	if(!isset($tokens[3]))
+		$tokens[3] = null;
+
+	$tasks = array(
+		'overview' => array('Overview', 'manage/', null),
+		'new-package' => array('New Package', 'new-package/', 'new-package')
+		);
+
+	ob_start();
+	switch($tokens[2]) {
+		case null:
+			include("system/collections/manage/home.php");
+			break;
+
+		case 'new-package':
+			include("system/collections/manage/new_pkg.php");
+			break;
+
+		default:
+			if($tokens[3] == 'new-version') {
+				include('system/collections/manage/new_version.php');
+				break;
+			}
+			include("system/collections/manage/view_pkg.php");
+			break;
+	}
+	$html = ob_get_contents();
+	ob_clean();
 
 ?>
-
 <div class="manager-vtoolbar">
 <b>Tasks</b><br />
 <?php
@@ -43,19 +66,6 @@ $tasks = array(
 </div>
 <div class="manager-area vtoolbar-offset">
 <?php
-
-	switch($tokens[2]) {
-		case null:
-			include("system/collections/manage/home.php");
-			break;
-
-		case 'new-package':
-			include("system/collections/manage/new.php");
-			break;
-
-		default:
-			include("system/collections/manage/view_pkg.php");
-			break;
-	}
+	echo $html;
 ?>
 </div>

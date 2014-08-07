@@ -1,4 +1,5 @@
 <?php
+	$tasks['overview'][1] = "../";
 	// run the addition
 	$error = false;
 	$msg = null;

@@ -15,7 +15,7 @@
 	foreach($packages as $p) {
 		echo "<tr>";
 		echo "<td>";
-		echo "<a href=\"manage/{$p['name']}\">";
+		echo "<a href=\"{$p['name']}/\">";
 		echo $p['name'];
 		echo "</a>";
 		echo "</td>";
