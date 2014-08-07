@@ -1,4 +1,5 @@
 <?php
+	$tasks['collection'][1] = "../../";
 	$tasks['overview'][1] = "../";
 	// run the addition
 	$error = false;

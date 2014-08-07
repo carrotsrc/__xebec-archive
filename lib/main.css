@@ -1,9 +1,35 @@
+a {
+	color: #0C1CCF;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #5965EF;
+}
 .color-error {
 	color: #AF2B2B;
 }
 
 .color-success {
 	color: #50AF20;
+}
+
+.acritical {
+	color: #AF2B2B !important;
+}
+
+.acritical:hover {
+	color: #CF4D4D !important;
+}
+
+
+
+.vspacer-small {
+	margin-top: 7px;
+}
+
+.vspacer-micro {
+	margin-top: 3px;
 }
 
 .system-location {
@@ -31,4 +57,17 @@
 }
 .system-location .manager-area th {
 	text-align: left;
+}
+
+.system-location .cat-container {
+	margin-top: 10px;
+	overflow: auto;
+}
+
+.system-location .left-spacer-small {
+	margin-left: 10px;
+}
+
+.fsmall {
+	font-size: 13px;
 }

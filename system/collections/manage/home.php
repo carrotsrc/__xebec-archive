@@ -1,3 +1,4 @@
+<h2 style="margin-top: 0px;"><?php echo $tokens[0]; ?></h2>
 <?php
 	$packages = collection_routine_get_packages($collection['id'], $db);
 	if(!$packages) {

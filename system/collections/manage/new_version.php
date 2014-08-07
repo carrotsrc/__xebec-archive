@@ -1,9 +1,11 @@
 <?php
 	include('lib/packages.php');
+	$tasks['collection'][1] = "../../../";
 	$tasks['overview'][1] = "../../";
 	$tasks['new-package'][1] = "../../new-package/";
 	$tasks['back'] = array("Back", "../", "back");
 	$error = false;
+	$msg = null;
 
 	if(isset($_POST['action']) && $_POST['action'] == "new") {
 		$version = explode(".", $_POST['version']);

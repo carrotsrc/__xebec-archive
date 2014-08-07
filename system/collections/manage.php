@@ -25,6 +25,7 @@
 		$tokens[3] = null;
 
 	$tasks = array(
+		'collection' => array('Home', "../", 'collection'),
 		'overview' => array('Overview', 'manage/', null),
 		'new-package' => array('New Package', 'new-package/', 'new-package')
 		);
@@ -42,6 +43,10 @@
 		default:
 			if($tokens[3] == 'new-version') {
 				include('system/collections/manage/new_version.php');
+				break;
+			} else
+			if($tokens[3] == 'modify') {
+				include('system/collections/manage/modify_pkg.php');
 				break;
 			}
 			include("system/collections/manage/view_pkg.php");
