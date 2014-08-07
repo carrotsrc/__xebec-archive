@@ -103,10 +103,8 @@
 						echo "<tr>";
 						echo "<td>{$v['major']}.{$v['minor']}.{$v['maintenance']}{$v['stage']}</td>";
 						echo "<td>";
-						if($v['archive'] == null)
-							echo "No archive";
-						else
-							echo $v['archive'];
+						if($v['archive'])
+							echo "<a href=\"/repo/{$tokens[0]}/{$tokens[2]}/{$v['archive']}\">Archive</a>";
 						echo "</td>";
 						echo "<td>";
 							echo "<a href=\"?action=remove&version={$v['id']}\" class=\"acritical\">Remove</a>";

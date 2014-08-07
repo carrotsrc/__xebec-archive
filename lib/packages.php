@@ -21,6 +21,11 @@
 		return false;
 	}
 
+	function package_db_modify_details($pid, $name, $desc, $db)
+	{
+		return db_query("UPDATE `packages` SET `name`='$name', `desc`='$desc' WHERE `id`='$pid'", $db);
+	}
+
 	function package_db_remove($package, $db)
 	{
 		$sql = "DELETE FROM `packages` WHERE ";

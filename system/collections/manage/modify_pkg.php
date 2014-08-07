@@ -1,5 +1,19 @@
 <?php
+	$error = false;
+	$msg = null;
 	include('lib/packages.php');
+	if(isset($_POST['desc'])) {
+		include('lib/strings.php');
+		$package = package_db_get_details($tokens[2], $db);
+		$valid = true;
+
+		if(!package_db_modify_details($package['id'], $package['name'], string_prepare_mysql($_POST['desc']), $db)) {
+			$error = true;
+			$msg = "Error modifying description";
+		} else
+			$msg = "Modified description";
+	
+	}
 	// add and modify tasks
 	$tasks['collection'][1] = '../../../';
 	$tasks['overview'][1] = '../../';
@@ -19,10 +33,12 @@
 ?>
 <div>
 <b>Basic Details</b>
+<form method="post">
+
 <table>
 <tr>
 	<td>Package Name:</td>
-	<td><input type="text" name="name" value="<?php echo $package['name']; ?>" /></td>
+	<td><?php echo $package['name']; ?></td>
 </tr>
 
 <tr>
@@ -34,6 +50,14 @@
 	<td><input type="submit" value="Save" style="float: right" /></td>
 </tr>
 </table>
-
-
+</form>
 </div>
+<?php
+if($error)
+	echo "<div class=\"color-error\">";
+else
+	echo "<div class=\"color-success\">";
+	echo $msg;
+	echo "</div>";
+
+?>

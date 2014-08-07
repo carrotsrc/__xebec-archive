@@ -41,6 +41,11 @@
 		return db_query("INSERT INTO `collections` (`collection`) VALUES ('$name')", $db);
 	}
 
+	function collection_db_remove_package($package, $collection, $db)
+	{
+		return db_query("DELETE FROM `collection_package` WHERE `cid`='$collection' AND `pid`='$package'", $db);
+	}
+
 	function collection_routine_add_directory($name)
 	{
 		global $repo_config;
@@ -58,7 +63,15 @@
 	function collection_routine_package_exists($package, $collection, $db)
 	{
 		$sql = "SELECT `packages`.`id` FROM `packages` JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid`";
-		$sql .= " WHERE `packages`.`name`='$package' AND `collection_package`.`cid`='$collection'";
+		if(!is_numeric($collection))
+			$sql .= " JOIN `collection` ON `collection`.`collection`=`collection_packages`.`cid`";
+		$sql .= " WHERE `packages`.`name`='$package' AND ";
+		
+		if(is_numeric($collection))
+			$sql .= "`collection_package`.`cid`='$collection'";
+		else
+			$sql .= "`collection`.`collection`='$collection'";
+
 		if(!db_query($sql, $db))
 			return false;
 
@@ -85,8 +98,34 @@
 			$sql .= "`packages`.`id`='$package'";
 		else
 			$sql .= "`packages`.`name`='$package'";
-
 		return db_query($sql, $db);
 	}
+
+	function collection_routine_remove_package($package, $collection, $db)
+	{
+		global $repo_config;
+		if(!($package = collection_routine_get_package($package, $collection['id'], $db)))
+			return false;
+
+		$package = $package[0];
+		include('lib/packages.php');
+		$versions = package_db_get_versions($package['id'], $db);
+		$repos = package_db_get_scm($package['id'], $db);
+
+		
+
+		if($repos)
+			foreach($repos as $r)
+				package_routine_remove_scm($package['id'], $r['id'], $db);
+		
+		if($versions)
+			foreach($versions as $v)
+				package_routine_remove_version($collection['collection'], $package['name'], $package['id'], $v['id'], $db);
+
+		rmdir($repo_config['docroot']."/repo/{$collection['collection']}/{$package['name']}");
+		package_db_remove($package['id'], $db);
+		collection_db_remove_package($package['id'], $collection['id'], $db);
+	}
+
 
 ?>

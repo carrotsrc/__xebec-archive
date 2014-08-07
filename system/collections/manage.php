@@ -18,8 +18,13 @@
 		return;
 	}
 
+
 	if(!isset($tokens[2]))
 		$tokens[2] = null;
+	else {
+		if(isset($tokens[2][0]) && $tokens[2][0] == '?')
+			$tokens[2] = null;
+	}
 	
 	if(!isset($tokens[3]))
 		$tokens[3] = null;
@@ -48,7 +53,7 @@
 			if($tokens[3] == 'modify') {
 				include('system/collections/manage/modify_pkg.php');
 				break;
-			}
+			} else
 			include("system/collections/manage/view_pkg.php");
 			break;
 	}
