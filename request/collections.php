@@ -3,7 +3,7 @@
 
 	if(!isset($tokens[0])) {
 		$collections = collection_db_get_all($db);
-		encode_section("collections", $collections);
+		encode_section("collections", $collections, array('id'));
 	} else {
 		$collection = collection_db_get_details($tokens[0], $db);
 		if($collection) {
