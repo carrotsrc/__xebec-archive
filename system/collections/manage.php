@@ -61,7 +61,7 @@
 	ob_clean();
 
 ?>
-<div class="manager-vtoolbar">
+<div class="vtoolbar">
 <b>Tasks</b><br />
 <?php
 	foreach($tasks as $t) {

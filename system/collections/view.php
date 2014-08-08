@@ -48,7 +48,7 @@
 	ob_clean();
 
 ?>
-<div class="manager-vtoolbar">
+<div class="vtoolbar">
 <b>Tasks</b><br />
 <?php
 	foreach($tasks as $t) {
@@ -62,7 +62,7 @@
 ?>
 </div>
 
-<div class="manager-area vtoolbar-offset">
+<div class="browse-area vtoolbar-offset">
 <?php
 	echo $html;
 ?>

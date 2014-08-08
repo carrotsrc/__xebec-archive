@@ -35,7 +35,7 @@ a:hover {
 .system-location {
 
 }
-.system-location .manager-vtoolbar {
+.system-location .vtoolbar {
 	float: left;
 	width: 150px;
 }
@@ -44,7 +44,7 @@ a:hover {
 	display: block;
 }
 
-.system-location .manager-vtoolbar .item {
+.system-location .vtoolbar .item {
 	display: block;
 }
 
@@ -55,6 +55,7 @@ a:hover {
 .system-location .manager-area td, th {
 	padding: 5px;
 }
+
 .system-location .manager-area th {
 	text-align: left;
 }
@@ -63,6 +64,43 @@ a:hover {
 	margin-top: 10px;
 	overflow: auto;
 }
+
+.system-location .browse-area td, th {
+	padding: 5px;
+}
+
+.system-location .browse-area th {
+	text-align: left;
+	padding: 5px;
+}
+
+
+
+.version-table {
+	border-width: 2px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-color: #CFCFCF;
+	border: 1px solid #CFCFCF;
+}
+
+.version-table td, th {
+	padding: 10px;
+}
+
+.version-table tr {
+	border-top: 1px solid #CFCFCF;
+}
+
+.version-table .top {
+	background-color: #DFFFCF;
+	border-top-width: 0px;
+}
+
+.version-table .deprecated {
+	background-color: #FFDFDF;
+}
+
 
 .system-location .left-spacer-small {
 	margin-left: 10px;
