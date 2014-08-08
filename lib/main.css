@@ -1,3 +1,6 @@
+body {
+	color: #303030;
+}
 a {
 	color: #0C1CCF;
 	text-decoration: none;
@@ -12,6 +15,10 @@ a:hover {
 
 .color-success {
 	color: #50AF20;
+}
+
+.color-inactive {
+	color: #CDCDCD;
 }
 
 .acritical {
@@ -79,7 +86,7 @@ a:hover {
 .version-table {
 	border-width: 2px;
 	border-collapse: collapse;
-	border-spacing: 0;
+	border-spacing: 0px;
 	border-color: #CFCFCF;
 	border: 1px solid #CFCFCF;
 }
@@ -109,3 +116,4 @@ a:hover {
 .fsmall {
 	font-size: 13px;
 }
+

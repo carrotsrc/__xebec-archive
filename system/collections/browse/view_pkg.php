@@ -3,7 +3,6 @@
 	$package = package_db_get_details($tokens[1], $db);
 	$versions = package_db_get_versions($package['id'], $db, true);
 	$scm = package_db_get_scm($package['id'], $db, true);
-	var_dump($scm);
 
 	if(isset($tasks['manage']))
 		$tasks['manage'][1] = "../manage/{$package['name']}/";
@@ -15,8 +14,7 @@
 ?>
 </div>
 
-<div style="display: inline-block; vertical-align: top;" class="cat-container">
-<div class="version-list">
+<div style="display: inline-block; vertical-align: top; min-width: 30%;" class="cat-container">
 <strong>Versions</strong>
 
 <?php
@@ -43,7 +41,7 @@
 			if($v['archive'])
 				echo "<td><a href=\"{$collection['collection']}/{$package['name']}/{$v['archive']}\">Archive</a></td>";
 			else
-			echo "<td></td>";
+			echo "<td class=\"color-inactive\">Archive</td>";
 
 			if($v['deprecated'])
 				echo "<td>D</td>";
@@ -59,4 +57,23 @@
 
 ?>
 </div>
+
+<div style="display: inline-block; vertical-align: top;">
+<section class="cat-container">
+<strong>Updated</strong>
+<div class="vspacer-small"><time datetime="<?php echo $package['updated'] ?>"><?php echo $package['updated'] ?></time></div>
+</section>
+
+<section class="cat-container">
+<strong>Repositories</strong>
+<?php
+	if($scm) {
+		foreach($scm as $r) {
+			echo "<div class=\"vspacer-small\"><a href=\"{$r['url']}\" target=\"_BLANK\">{$r['url']}</a></div>";
+		}
+	} else
+		echo "<div class=\"vspacer-small\">No SCM repositories</div>";
+?>
+</section>
+
 </div>

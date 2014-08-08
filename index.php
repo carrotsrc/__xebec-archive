@@ -18,7 +18,7 @@
 	$title = "Home";
 	init_location($db, array_slice($tokens, 2), $title);
 ?>
-
+<!DOCTYPE html> 
 <html>
 <head>
 <title>vegPatch Module Repository - <?php echo $title; ?></title>

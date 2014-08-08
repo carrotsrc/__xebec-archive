@@ -16,6 +16,11 @@
 		return db_query("DELETE FROM `versions` WHERE `id`='$vid'", $db);
 	}
 
+	function version_db_deprecate($vid, $value, $db)
+	{
+		return db_query("UPDATE `versions` SET `deprecated`='$value' WHERE `id`='$vid';", $db);
+	}
+
 	function version_db_add_archive($aid, $vid, $db)
 	{
 		if(!db_query("INSERT INTO `version_archive` (`vid`, `aid`) VALUES ('$vid', '$aid')", $db))

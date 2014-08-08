@@ -81,7 +81,11 @@
 			package_routine_remove_version($tokens[0], $package['name'], $package['id'], $_GET['version'], $db);
 			package_routine_updated($package['id'], $db);
 		}
+	} else 
+	if($action == "deprecate") {
+		package_routine_deprecate_version($_GET['version'], $package['id'], $_GET['val'], $db);
 	}
+
 
 
 
@@ -106,7 +110,25 @@
 						echo "<td>";
 						if($v['archive'])
 							echo "<a href=\"/repo/{$tokens[0]}/{$tokens[2]}/{$v['archive']}\">Archive</a>";
+						else
+							echo "<span class=\"color-inactive\">Archive</span>";
+
 						echo "</td>";
+
+						echo "<td>";
+						if($v['deprecated'])
+							echo "<span class=\"\">D</span>";
+						else
+							echo "<span class=\"color-success\">A</span>";
+						echo "</td>";
+
+						echo "<td>";
+						if($v['deprecated'])
+							echo "<a href=\"?action=deprecate&version={$v['id']}&val=0\" class=\"acritical\">Activate</a>";
+						else
+							echo "<a href=\"?action=deprecate&version={$v['id']}&val=1\" class=\"acritical\">Deprecate</a>";
+						echo "</td>";
+
 						echo "<td>";
 							echo "<a href=\"?action=remove&version={$v['id']}\" class=\"acritical\">Remove</a>";
 						echo "</td>";
@@ -155,7 +177,7 @@
 		<form method="post" enctype="multipart/form-data">
 			<div class="vspacer-small">
 				Version Number:<br />
-				<input type="text" name="version" style="width: 100%;" class="vspacer-micro" />
+				<input type="text" name="version" style="width: 200px;" class="vspacer-micro" />
 			</div>
 
 			<div class="vspacer-small">

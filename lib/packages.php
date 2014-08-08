@@ -206,4 +206,12 @@
 
 		db_query("UPDATE `packages` SET `updated`=NOW() WHERE $s='$package'", $db);
 	}
+
+	function package_routine_deprecate_version($vid, $pid, $value, $db)
+	{
+		if(!package_db_package_version_exists($vid, $pid, $db))
+			return false;
+
+		return version_db_deprecate($vid, $value, $db);
+	}
 ?>
