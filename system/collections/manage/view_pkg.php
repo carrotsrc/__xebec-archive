@@ -1,5 +1,6 @@
 <?php
 	include('lib/packages.php');
+	include('lib/versions.php');
 	// add and modify tasks
 	$tasks['collection'][1] = '../../';
 	$tasks['overview'][1] = '../';
@@ -22,6 +23,7 @@
 		$action = $_GET['action'];
 
 	if($action == "new-version") {
+
 		$version = explode(".", $_POST['version']);
 		$s = sizeof($version)-1;
 		$i = 0;
@@ -44,8 +46,7 @@
 		$archive = null;
 
 		if(isset($_FILES['archive']))
-			$archive = package_routine_store_archive($version, $stage, $tokens[0], $tokens[2], $_FILES['archive']);
-
+			$archive = archive_routine_store($version, $stage, $tokens[0], $tokens[2], $_FILES['archive']);
 		if(!package_routine_add_version($version, $stage, $tokens[2], $archive, $db)) {
 			$error = true;
 			$msg = 'Failed to add version';

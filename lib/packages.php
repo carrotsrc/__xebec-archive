@@ -91,34 +91,6 @@
 		return db_query($sql, $db);
 	}
 
-	function package_db_remove_archive($version, $db)
-	{
-		$archive = db_query("SELECT `version_archive`.*, `archives`.`archive` FROM `version_archive` JOIN `archives` ON `archives`.`id`=`version_archive`.`aid` WHERE `vid`='$version'", $db);
-		if(!$archive)
-			return false;
-
-		$aid = $archive[0]['aid'];
-
-		db_query("DELETE FROM `version_archive` WHERE `vid`='$version' AND `aid`='$aid'", $db);
-
-		if(!db_query("DELETE FROM `archives` WHERE `id`='$aid'", $db))
-			return false;
-
-		return $archive[0]['archive'];
-	}
-
-	function package_db_add_archive($archive, $version, $db)
-	{
-		if(!db_query("INSERT INTO `archives` (`archive`) VALUES ('$archive')", $db))
-			return false;
-		$id = db_last_id($db);
-		if(!db_query("INSERT INTO `version_archive` (`vid`, `aid`) VALUES ('$version', '$id')", $db))
-			return false;
-
-		return $id;
-	}
-
-
 	function package_db_get_scm($package, $db)
 	{
 		$sql = "SELECT `scm`.*";
@@ -177,8 +149,6 @@
 		if(package_db_version_exists($version, $stage, $package['id'], $db))
 			return false;
 
-		include('lib/versions.php');
-
 		$vid = null;
 		if(!($vid = version_db_add($version, $stage, $db)))
 			return false;
@@ -186,7 +156,7 @@
 		if(!package_db_add_version($vid, $package['id'], $db))
 			return false;
 
-		if(!package_db_add_archive($archive, $vid, $db))
+		if(!version_routine_add_archive($archive, $vid, $db))
 			return false;
 
 
@@ -216,24 +186,16 @@
 		return true;
 	}
 
-	function package_file_remove_archive($collection, $package, $archive)
-	{
-		global $repo_config;
-		return unlink($repo_config['docroot']."/repo/{$collection}/{$package}/{$archive}");
-	}
-
 	function package_routine_remove_version($collection, $package, $pid, $vid, $db)
 	{
 		if(!package_db_package_version_exists($vid, $pid, $db))
 			return false;
 
-
-		include('lib/versions.php');
 		version_db_remove($vid, $db);
 		package_db_remove_version($vid, $pid, $db);
-		$archive = package_db_remove_archive($vid, $db);
+		$archive = version_routine_remove_archive($vid, $db);
 		if($archive)
-			package_file_remove_archive($collection, $package, $archive);
+			archive_routine_unlink($collection, $package, $archive);
 	}
 
 	function package_routine_updated($package, $db)
@@ -243,31 +205,5 @@
 			$s = "`name`";
 
 		db_query("UPDATE `packages` SET `updated`=NOW() WHERE $s='$package'", $db);
-	}
-
-	function package_routine_store_archive(array $version, $stage, $collection, $package, $file)
-	{
-		$ud =$_SERVER['DOCUMENT_ROOT']."/repo/{$collection}/{$package}";
-		$base = basename($file['name']);
-		$base = explode(".", $base);
-		$type = null;
-		if(($i = sizeof($base)) > 1) {
-			if(sizeof($base) > 2 && $base[$i-2] == "tar")
-				$type="{$base[$i-2]}.{$base[$i-1]}";
-			else
-				$type = $base[$i-1];
-		}
-
-		$pfn = str_replace(" ", "_", $package);
-		$archive = "{$pfn}_{$version[0]}.{$version[1]}.{$version[2]}{$stage}";
-		$fn = "{$ud}/{$archive}";
-		if($type != null)
-			$fn .= ".".$type;
-
-
-		if(!move_uploaded_file($file['tmp_name'], $fn))
-			return null;
-
-		return "{$archive}.{$type}";
 	}
 ?>
