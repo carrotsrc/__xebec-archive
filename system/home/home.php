@@ -1,1 +1,1 @@
-View <a href="collections">collections</a>
+View <a href="collections/">collections</a>
