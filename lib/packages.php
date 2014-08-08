@@ -53,17 +53,6 @@
 	}
 
 
-	function package_db_add_version(array $version, $stage, $package, $db)
-	{
-		$sql = "INSERT INTO `versions` (`major`,`minor`,`maintenance`,`stage`, `created`, `updated`) ";
-		$sql .= "VALUES ('{$version[0]}', '{$version[1]}', '{$version[2]}', '$stage', NOW(), NOW())";
-
-		if(!db_query($sql, $db))
-			return null;
-
-		return db_last_id($db);
-	}
-
 	function package_db_package_version_exists($version, $package, $db)
 	{
 		$sql = "SELECT * FROM `versions` JOIN `package_version` ON `package_version`.`vid`=`versions`.`id` ";
@@ -76,19 +65,14 @@
 		return true;
 	}
 
-	function package_db_remove_version($version, $db)
+	function package_db_add_version($vid, $pid, $db)
 	{
-		return db_query("DELETE FROM `versions` WHERE `id`='$version'", $db);
+		return db_query("INSERT INTO `package_version` (`pid`,`vid`) VALUES ('$pid', '$vid')", $db);
 	}
 
-	function package_db_add_package_version($vid, $package, $db)
+	function package_db_remove_version($vid, $pid, $db)
 	{
-		return db_query("INSERT INTO `package_version` (`pid`,`vid`) VALUES ('$package', '$vid')", $db);
-	}
-
-	function package_db_remove_package_version($version, $package, $db)
-	{
-		return db_query("DELETE FROM `package_version` WHERE `pid`='$package' AND `vid`='$version'", $db);
+		return db_query("DELETE FROM `package_version` WHERE `pid`='$pid' AND `vid`='$vid'", $db);
 	}
 
 	function package_db_get_versions($package, $db, $archives = false)
@@ -193,11 +177,13 @@
 		if(package_db_version_exists($version, $stage, $package['id'], $db))
 			return false;
 
+		include('lib/versions.php');
+
 		$vid = null;
-		if(!($vid = package_db_add_version($version, $stage, $package['id'], $db)))
+		if(!($vid = version_db_add($version, $stage, $db)))
 			return false;
 
-		if(!package_db_add_package_version($vid, $package['id'], $db))
+		if(!package_db_add_version($vid, $package['id'], $db))
 			return false;
 
 		if(!package_db_add_archive($archive, $vid, $db))
@@ -236,14 +222,16 @@
 		return unlink($repo_config['docroot']."/repo/{$collection}/{$package}/{$archive}");
 	}
 
-	function package_routine_remove_version($collection, $package, $pid, $version, $db)
+	function package_routine_remove_version($collection, $package, $pid, $vid, $db)
 	{
-		if(!package_db_package_version_exists($version, $pid, $db))
+		if(!package_db_package_version_exists($vid, $pid, $db))
 			return false;
 
-		package_db_remove_version($version, $db);
-		package_db_remove_package_version($version, $pid, $db);
-		$archive = package_db_remove_archive($version, $db);
+
+		include('lib/versions.php');
+		version_db_remove($vid, $db);
+		package_db_remove_version($vid, $pid, $db);
+		$archive = package_db_remove_archive($vid, $db);
 		if($archive)
 			package_file_remove_archive($collection, $package, $archive);
 	}

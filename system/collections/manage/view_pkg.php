@@ -88,7 +88,7 @@
 	$scm = package_db_get_scm($package['id'], $db);
 ?>
 <div style="display: inline-block; vertical-align: top; min-width: 30%;">
-	<h2 style="margin-top: 0px;"><?php echo $tokens[0] ." / ". $package['name']; ?></h2>
+	<h2 style="margin-top: 0px;"><a href="../"><?php echo $tokens[0] ."</a> / ". $package['name']; ?></h2>
 	<?php echo $package['desc']; ?><br />
 	<a href="modify/" class="fsmall">Modify Details</a>
 	<div class="cat-container">
@@ -112,7 +112,7 @@
 						echo "</tr>";
 					}
 				} else {
-					echo "No versions of this package exist";
+					echo "<br />No versions of this package exist";
 				}
 			?>
 			</table>

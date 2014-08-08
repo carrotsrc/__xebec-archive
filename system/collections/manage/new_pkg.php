@@ -23,7 +23,7 @@
 				} else  {
 					collection_routine_add_package_directory($_POST['name'], $collection['collection']);
 					$msg = "Successfully added package to collection";
-					header( "refresh:1;url=../{$_POST['name']}" );
+					header( "refresh:1;url=../{$_POST['name']}/" );
 				}
 			}
 		}
