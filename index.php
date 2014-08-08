@@ -21,7 +21,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>vegPatch Module Repository - <?php echo $title; ?></title>
+<title><?php echo $repo_config['title']; ?> - <?php echo $title; ?></title>
 <link href="/lib/main.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
