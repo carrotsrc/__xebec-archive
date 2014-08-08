@@ -9,6 +9,12 @@
 	if(end($tokens) == "")
 		unset($tokens[sizeof($tokens)-1]);
 
+	if($tokens[1] == 'api') {
+		$tokens = array_slice($tokens, 2);
+		include('request/handle.php');
+		exit;
+	}
+
 	$loaded = false;
 
 	if(!file_exists("system/".$tokens[1]."/main.php"))
@@ -25,10 +31,18 @@
 <link href="/lib/main.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-<div class="system-location">
+<div id="content-container">
+<div id="content-body" class="system-location">
 <?php
 	display_location($db, array_slice($tokens, 2));
 ?>
 </div>
+
+<div id="content-footer">
+<div style="float: right; margin-right: 10px;">Xebec Repo</span>
+</div>
+
+</div>
+
 </body>
 </html>
