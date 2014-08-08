@@ -1,4 +1,5 @@
 <?php
+	header('Content-Type: application/xml; charset=utf-8');
 	if(!isset($tokens[0]))
 		die("No encoder specified");
 
@@ -10,7 +11,7 @@
 
 	$branch = $tokens[1];
 	$tokens = array_slice($tokens, 2);
-
+	$trail = array();
 	if($enc == 'xml') {
 		include('lib/encoder/xml.php');
 		echo xml_doc();
@@ -18,6 +19,10 @@
 
 	if($branch == 'collections')
 		include('request/collections.php');
+
+	if(sizeof($trail) > 0) 
+		encode_section("trail", array($trail));
+
 
 	if($enc == 'xml')
 		echo xml_end();
