@@ -1,6 +1,38 @@
+body, html {
+	margin: 0px;
+	height: 100%;
+}
+
 body {
 	color: #303030;
 }
+
+#content-container {
+	min-height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+#content-header {
+	width: 100%;
+	background-color: #DFE8FF;
+	padding: 5px;
+	-moz-box-sizing: padding-box;
+}
+
+#content-body {
+	padding-bottom: 50px;
+	padding: 10px;
+}
+
+#content-footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+}
+
+
 a {
 	color: #0C1CCF;
 	text-decoration: none;
@@ -39,9 +71,6 @@ a:hover {
 	margin-top: 3px;
 }
 
-.system-location {
-
-}
 .system-location .vtoolbar {
 	float: left;
 	width: 150px;

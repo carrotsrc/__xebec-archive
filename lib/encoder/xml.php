@@ -3,15 +3,13 @@
 	{
 		echo "<row>";
 		foreach($row as $col => $field) {
-			echo "<col id=\"";
+			$c = $col;
 			if(isset($alias[$col]))
-				echo $alias[$col];
-			else
-				echo $col;
+				$c = $alias[$col];
 			
-			echo "\">";
+			echo "<$c>";
 			echo string_prepare_xml($field);
-			echo "</col>";
+			echo "</$c>";
 		}
 		echo "</row>";
 	}

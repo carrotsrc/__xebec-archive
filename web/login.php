@@ -33,9 +33,10 @@
 	}
 ?>
 
+<!DOCTYPE html> 
 <html>
 <head>
-<title>vegPatch Module Repository - Login</title>
+<title><?php echo $repo_config['title']; ?> - Login</title>
 <link href="lib/main.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
