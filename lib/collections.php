@@ -127,5 +127,20 @@
 		collection_db_remove_package($package['id'], $collection['id'], $db);
 	}
 
+	function collection_routine_package_updates($limit = 10, $collection, $db)
+	{
+		$sql = "SELECT `collections`.`collection`, `packages`.`name`, `packages`.`updated` FROM `packages` ";
+		$sql .= "JOIN `collection_package` ON `packages`.`id` = `collection_package`.`pid` ";
+		$sql .= "JOIN `collections` ON `collections`.`id`=`collection_package`.`cid` ";
+
+		if($collection)
+			$sql .= "WHERE `collections`.`collection`='$collection' ";
+		
+		$sql .= "ORDER BY `packages`.`updated` DESC";
+		if($limit)
+			$sql .= " LIMIT $limit";
+		return db_query($sql, $db);
+	}
+
 
 ?>

@@ -39,7 +39,7 @@
 				echo "{$v['stage']}";
 			echo "</td>";
 			if($v['archive'])
-				echo "<td><a href=\"{$collection['collection']}/{$package['name']}/{$v['archive']}\">Archive</a></td>";
+				echo "<td><a href=\"/repo/{$collection['collection']}/{$package['name']}/{$v['archive']}\">Archive</a></td>";
 			else
 			echo "<td class=\"color-inactive\">Archive</td>";
 

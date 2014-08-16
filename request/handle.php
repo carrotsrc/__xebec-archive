@@ -19,6 +19,9 @@
 
 	if($branch == 'collections')
 		include('request/collections.php');
+	else
+	if($branch == 'latest')
+		include('request/latest.php');
 
 	if(sizeof($trail) > 0) 
 		encode_section("trail", array($trail));
@@ -26,5 +29,4 @@
 
 	if($enc == 'xml')
 		echo xml_end();
-
 ?>
