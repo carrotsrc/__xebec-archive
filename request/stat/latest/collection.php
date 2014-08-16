@@ -6,8 +6,6 @@
 		else
 			encode_section("packages", $packages);
 	} else {
-		$collection = $tokens[0];
-		$tokens = array_slice($tokens, 1);
 		include('request/stat/latest/package.php');
 	}
 ?>

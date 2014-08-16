@@ -8,7 +8,6 @@
 
 	if(!isset($tokens[1]))
 		$tokens[1] = null;
-
 	$branch = $tokens[1];
 	$tokens = array_slice($tokens, 2);
 	$trail = array();
