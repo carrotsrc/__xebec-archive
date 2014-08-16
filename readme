@@ -1,12 +1,20 @@
 Xebec Repository
 ================
 
-Version: 0.1.0
-Updated: 2014/08/16
+Version: 0.1
 Author: Charlie FG
+Updated: 2014/08/16
 
 About
 =====
+An online archive repository written in PHP and is in early development. It is mainly being designed as a native drop-in for vegPatch web platform for rapid integration of modules.
+It has a browser facing interface combined with xml dispatch for web API.
 
-The Xebex Repository is a general purpose archive repository in early development. It is being developed as a native integration to the vegPatch web platform.
-
+Current Progress
+===============
+* Add users
+* Add/remove collections
+* Add/remove packages and their description
+* Add/remove versions of packages with optional archive
+* Version states - active/deprecatged
+* Add/remove optional SCM repo links
