@@ -18,10 +18,10 @@
 	}
 
 	if($branch == 'collections')
-		include('request/collections.php');
+		include('request/browse/collections.php');
 	else
 	if($branch == 'latest')
-		include('request/latest.php');
+		include('request/stat/latest.php');
 
 	if(sizeof($trail) > 0) 
 		encode_section("trail", array($trail));

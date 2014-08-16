@@ -6,7 +6,7 @@
 	} else {
 		$package = collection_routine_get_package($tokens[1], $collection['id'], $db);
 		if($package) {
-			include('request/package.php');
+			include('request/browse/package.php');
 		} else
 			echo "<error>Package does not exist</error>";
 	

@@ -8,7 +8,7 @@
 		$collection = collection_db_get_details($tokens[0], $db);
 		if($collection) {
 			$collection = $collection[0];
-			include('request/packages.php');
+			include('request/browse/packages.php');
 		}
 		else
 			echo "<error>Collection not found</error>";
