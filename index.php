@@ -2,7 +2,8 @@
 	include('system/init.php');
 	$db = init_database();
 	init_session();
-	$tokens = explode('/', $_SERVER['REQUEST_URI']);
+	$tokens = explode('?', $_SERVER['REQUEST_URI']);
+	$tokens = explode('/', $tokens[0]);
 	if($tokens[1] == "" || $tokens[1] == "index.php")
 		$tokens[1] = "home";
 
